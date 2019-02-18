@@ -2,14 +2,13 @@
 
 #See http://www.statmethods.net/ for many basic functions like graphing and graphical parameter options
 #http://www.cookbook-r.com/ the cookbook for R is also a helpful resource
-#Shift + left mouse button will activate links in R, at least it will in windows...
+#Shift + left mouse button will activate links in R studio, at least it will in windows...
 
 
 #For an intro to stats in R, read: Navarro, D. J. (2015) Learning statistics with R: A tutorial for psychology students and other beginners. (Version 0.5) University of Adelaide. Adelaide, Australia
 #the companion package, learning statistics with R ("lsr") contains some intuitive and useful basic functions for effect sizes, confidence intervals, Chi-Square tests, etc.
 
 #text after the "#" is used for notes and will be ignored by R. 
-
 
 #general options/functions####
 ?function_name # open the help page for the function or other object of interest. 
@@ -37,9 +36,7 @@ log10(100)/log10(2)
 exp(8)
 ?exp
 
-#R can also do calculus. Ask me later if you are interested.
-
-#logical operators, mostly useful when selecting subsets of data or when programming####
+#logical operators, mostly useful when selecting subsets of data or programming####
 1 == 1 #use double equality symbols to check for equality since "=" is reserved for assignment or value specification
 1 == 2
 
@@ -135,7 +132,7 @@ levels(data$c) #display the levels in the order that R has them arranged in
 
 #sampling####
 ?sample #opens the help page for the random sample function
-sample(1:40, 6, replace=F) #obtain a random sample 6 numbers with values ranging between 1 and 40
+sample(1:40, 6, replace=F) #obtain a random sample 6 numbers without replacement using values ranging between 1 and 40
 
 x <- c(1:30)
 x
@@ -179,7 +176,7 @@ data$factorGxZ <- interaction(data$g, data$z) #combine factors
 levels(data$factorGxZ)
 
 #add a new column to the data frame and name it in the same line####
-# install.packages("dpylr") #remove the hashtag/pound symbol to activate code if needed
+# install.packages("dpylr") #remove the hashtag/pound symbol at the start of a line to activate code if needed
 library(dplyr)
 
 data <- mutate(data, r = y/10) #add a column "C" to the data frame which contains a row-wise proportion of variable A / variable B
@@ -188,7 +185,7 @@ data
 
 #get the index number of a specific named column####
 names(data)
-grep("r", colnames(data)) #useful if you have many columns e.g. the CLSA data = 30,000+ rows x 1000+ columns
+grep("r", colnames(data)) #useful if you have many columns e.g. 'omics data
  
 #exporting data to a .csv file####
 write.csv(data, file="practice data.csv") #export to csv file for easy copying
@@ -202,10 +199,10 @@ imported.data <- read.csv(file.choose(), header=TRUE) #open a browser window to 
 getwd() # get the working directory
 wd <- getwd() #store the working directory in an object called "wd"
 
-list.files(path=wd, pattern=".csv", full.names=TRUE) #list of the files in your working directory
+list.files(path=wd, pattern="practice data.csv", full.names=TRUE) #list of the files in your working directory
 
 #can copy and paste full path/file_name
-data <- read.csv("C:/Users/CPH/Desktop/documents/McMaster/stats/R training Nov 2018/practice data.csv", header=TRUE) #import the data file and store it in the generic "data" data frame
+data <- read.csv("data.csv", header=TRUE) #import the data file and store it in the generic "data" data frame
 
 #or you can make use of file index number from the list_files object
 file_names <- list.files(path=wd, pattern=".csv", full.names=TRUE) #list of the files in your working directory
