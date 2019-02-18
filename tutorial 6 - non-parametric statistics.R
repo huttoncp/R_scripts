@@ -36,11 +36,14 @@ t.test(subset(data, cyl=="4")$hp, subset(data, cyl=="6")$hp, var.equal=TRUE) #t-
 t.test(subset(data, cyl=="4")$hp, subset(data, cyl=="6")$hp, var.equal=FALSE) #t-test comparing the equivalence of groups x1 and x2 assuming equal variances, can specify alternative hypotheses using alternative = c("two.sided", "less", "greater")
 
 #purrr::map'd t-tests####
+cyl4.6_data <- data %>% filter(cyl =="4" | cyl =="6") #can only compare 2 sample groups with t-test function
+
 library(tidyverse) #contains dplyr and purrr packages, could load separately using library(dplyr) & library(purrr)
-EPM_data %>% 
+
+cyl4.6_data %>% 
   select_if(is.numeric) %>%
-  map(~t.test(. ~ EPM_data$group, var.equal=T)) #substitute "." for y, since map will loop over each "y" column
-?t.test
+  map(~t.test(. ~ cyl4.6_data$cyl, var.equal=T)) #substitute "." for y, since map will loop over each "y" column
+
 
 #Welch equivalent to a one-way (single-factor) ANOVA####
 oneway.test(hp ~ cyl, data = data) #Welch correction for a one way anova assuming no homogeneity of variance
