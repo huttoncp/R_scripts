@@ -40,10 +40,10 @@ week <-
 colnames(week) <-
   c("day1", "day2", "day3", "day4", "day5", "day6", "day7") #label the columns
 week #show the new matric on the screen
-write.csv(week, file = "mouse order.csv") #export to csv file for easy copying
+write.csv(week, file = "subject order.csv") #export to csv file for easy copying
 ? write.csv
 
-write.csv(week, file = "mouse order.csv", row.names = FALSE) #add "row.names = FALSE" to get rid of the row names/index #s
+write.csv(week, file = "subject order.csv", row.names = FALSE) #add "row.names = FALSE" to get rid of the row names/index #s
 
 getwd()
 #reshaping data using reshape2####
@@ -108,12 +108,6 @@ data_wide <-
     fun.aggregate = mean,
     value.var = "measurement"
   )  #"subject" and "sex" are columns we want to keep the same. "condition" is the column that contains the names of the new column to put things in. "measurement" holds the measurements
-
-# data_tidy <- dcast(data_proteins,
-#     subject + sex + experimental_group ~ accession_number, #vars you want to leave unchanged ~ key variable you want to spread from
-#     fun.aggregate = mean,
-#     value.var = "normalized_intensity")  
-
 
 data_wide <-
   dcast(data_long, id ~ pretest.hour, mean, value.var = "measurement")
