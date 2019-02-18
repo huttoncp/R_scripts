@@ -34,7 +34,7 @@ df
 chisq.test(df, correct = F) #correct = F argument removes the default Yates' continuity correction for small sample sizes
 
 #if you instead just have vectors of category labels
-df.2 <- read.csv("https://goo.gl/j6lRXD")
+df.2 <- read.csv("label_vectors.csv")
 
 head(df.2, n = 10)
 
