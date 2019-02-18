@@ -487,22 +487,22 @@ windows()
 restraint_data %>% 
   na.omit() %>% 
   group_by(group) %>% 
-  summarize(mean = mean(restraint_score), 
-            se = sd(restraint_score, na.rm = T)/sqrt(length(restraint_score))) %>% 
+  summarize(mean = mean(score), 
+            se = sd(score, na.rm = T)/sqrt(length(score))) %>% 
   ggplot(aes(x = group, y = mean, color = group)) +
   geom_errorbar(aes(ymin = mean-se, ymax = mean+se), 
                 position = "dodge", width = 0.25, size = 2) +
   geom_point(cex = 7) +
-  labs(y = "Mean restraint score by group", x = "Group")+
+  labs(y = "Mean score by group", x = "Group")+
   ylim(0, 2) +
-  scale_x_discrete(name = "Group", breaks = c("SH", "TBI"), labels = c("Sham", "TBI")) +
+  scale_x_discrete(name = "Group", breaks = c("groupA", "groupB"), labels = c("Group A", "Group B")) +
   scale_color_manual(name = "Group", 
-                     breaks = c("SH", "TBI"),
+                     breaks = c("groupA", "groupB"),
                      values = c("blue", "red"),
-                     labels = c("Sham", "TBI")) +
+                     c("Group A", "Group B")) +
   theme_bw(base_size = 16) +
   theme(axis.text = element_text(face = "bold")) +
-  geom_signif(comparisons = list(c("SH", "TBI")),  annotations="* p < 0.05", 
+  geom_signif(comparisons = list(c("groupA", "groupB")),  annotations="* p < 0.05", 
               color='black', size = 2, textsize = 5,
               y_position = 1.75, map_signif_level=TRUE, na.rm = T)
 
@@ -510,19 +510,19 @@ restraint_data %>%
 #boxplots
 EPM_data %>% 
   select_if(is.numeric) %>%
-  map(~boxplot(. ~ EPM_data$group, data = EPM_data))
+  map(~boxplot(. ~ data$group, data = data))
 
 
 #purrr::map ggplotting####
-var_labs <- c("open arm entries", "closed arm entries", "total arm entries", 
-              "risk assessments", "open arm time (s)", "# of fecal boli")
+var_labs <- c("var1", "var2", "var3", 
+              "var4", "var5", "var6")
 
-plots <- EPM_data %>% select(open.arm.entries:fecal.boli) %>% 
-  select_if(is.numeric) %>%
-  map2(var_labs,
-       ~ggplot(EPM_data, mapping = aes(y = .x, x = group)) +
+plots <- data %>% 
+    select(var1:var6) %>% 
+    map2(var_labs,
+       ~ggplot(data, mapping = aes(y = .x, x = group)) +
          geom_boxplot() +
-         geom_jitter(cex = 3, aes(y = .x, x = group, color = convulsions, shape = sex)) + 
+         geom_jitter(cex = 3, aes(y = .x, x = group, color = age_category, shape = sex)) + 
          ylab(.y) +
          theme_bw(base_size = 14)
   )
