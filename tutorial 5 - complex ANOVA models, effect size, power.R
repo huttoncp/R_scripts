@@ -436,6 +436,6 @@ anova_stats(Anova(lm.1, type = 3)) #cohen's f, power, and other useful values fo
 #purrr::map linear modelling####
 library(tidyverse)
 #linear models
-EPM_data %>% 
+OBdata %>% 
   select_if(is.numeric) %>%
-  map(~summary(lm(. ~ EPM_data$group)))
+  map(~summary(lm(. ~ OBdata$treatment*OBdata$gender, data = OBdata)))
